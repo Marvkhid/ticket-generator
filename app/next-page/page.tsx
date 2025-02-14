@@ -132,7 +132,7 @@ const Page: React.FC = () => {
                 onClick={handleImageClick}
               >
                 {avatar ? (
-                  <img src={avatar} alt="Avatar" className="w-full h-full object-cover rounded-xl" />
+                 <Image src={avatar} alt="Avatar" layout="fill" objectFit="cover" className="rounded-xl" />
                 ) : (
                   <div className="text-center flex flex-col items-center justify-center text-white text-sm">
                     <Image src="/icon.png" alt="Upload Icon" width={50} height={50} className="mb-2" />

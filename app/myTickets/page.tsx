@@ -2,17 +2,17 @@
 
 import React, { useEffect, useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import bgImage from '@/public/Subtract.png';
 import Barcode from '../Barcode';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
-import { Road_Rage } from "next/font/google"; // ✅ Import Road Rage Font
+import { Road_Rage } from 'next/font/google';
 
-// ✅ Configure the Road Rage font
 const roadRage = Road_Rage({
-  weight: "400",
-  subsets: ["latin"],
-  display: "swap",
+  weight: '400',
+  subsets: ['latin'],
+  display: 'swap',
 });
 
 const Ticket = ({ ticketRef }: { ticketRef: React.RefObject<HTMLDivElement | null> }) => {
@@ -38,8 +38,8 @@ const Ticket = ({ ticketRef }: { ticketRef: React.RefObject<HTMLDivElement | nul
 
   return (
     <div className="flex justify-center items-center overflow-hidden mt-8 w-full px-4 sm:px-2">
-      <div 
-        ref={ticketRef} 
+      <div
+        ref={ticketRef}
         className="relative w-full max-w-[1200px] h-auto rounded-xl shadow-lg flex flex-col items-center justify-center p-4"
         style={{
           backgroundImage: `url(${bgImage.src})`,
@@ -48,21 +48,26 @@ const Ticket = ({ ticketRef }: { ticketRef: React.RefObject<HTMLDivElement | nul
           backgroundRepeat: 'no-repeat',
         }}
       >
-        {/* Event Details */}
         <div className="text-center text-white">
-          <h2 className={`${roadRage.className} font-bold text-3xl sm:text-5xl mb-2`}>Techember Fest '25</h2>
+          <h2 className={`${roadRage.className} font-bold text-3xl sm:text-5xl mb-2`}>
+            Techember Fest &apos;25
+          </h2>
           <p className="text-white text-lg sm:text-2xl mb-1">📍 04 Rumens Road, Ikoyi, Lagos</p>
           <p className="text-lg sm:text-2xl">📅 March 15, 2025 | 7:00 PM</p>
         </div>
 
-        {/* Display uploaded avatar */}
         {avatar && (
-          <div className="mt-4 sm:mt-6">
-            <img src={avatar} alt="User Avatar" className="w-24 h-24 sm:w-40 sm:h-40 object-cover rounded-xl border-4 border-teal-500" />
+          <div className="mt-4 sm:mt-6 relative w-24 h-24 sm:w-40 sm:h-40">
+            <Image
+              src={avatar}
+              alt="User Avatar"
+              fill
+              className="object-cover rounded-xl border-4 border-teal-500"
+              unoptimized
+            />
           </div>
         )}
 
-        {/* Ticket Details */}
         <div className="bg-teal-800 rounded-xl px-6 py-8 mt-4 w-1/2 max-w-lg">
           <div className="flex flex-col sm:flex-row justify-between items-center pb-4 mb-4 border-b border-teal-600">
             <div className="w-1/2 sm:w-1/2 pr-4 mb-4 sm:mb-0">
@@ -92,7 +97,6 @@ const Ticket = ({ ticketRef }: { ticketRef: React.RefObject<HTMLDivElement | nul
           </div>
         </div>
 
-        {/* Barcode Component */}
         <div className="mt-6 sm:mt-10">
           <Barcode />
         </div>
@@ -103,7 +107,6 @@ const Ticket = ({ ticketRef }: { ticketRef: React.RefObject<HTMLDivElement | nul
 
 const Page = () => {
   const ticketRef = useRef<HTMLDivElement | null>(null);
-  const router = useRouter();
 
   const downloadTicket = async () => {
     if (!ticketRef.current) return;
@@ -114,7 +117,7 @@ const Page = () => {
     const doc = new jsPDF({
       orientation: 'portrait',
       unit: 'px',
-      format: [canvas.width, canvas.height]
+      format: [canvas.width, canvas.height],
     });
 
     doc.addImage(imgData, 'PNG', 0, 0, canvas.width, canvas.height);
@@ -123,7 +126,6 @@ const Page = () => {
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4 sm:p-6">
-      {/* Progress Bar */}
       <div className="flex justify-between items-center mb-4 w-full max-w-lg">
         <h1 className="text-xl sm:text-3xl text-white">Ready</h1>
         <h1 className="text-sm sm:text-xl text-gray-400">Step 3/3</h1>
