@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useState, useRef } from 'react';
-import { useRouter } from 'next/navigation';
+
 import Image from 'next/image';
 import bgImage from '@/public/Subtract.png';
 import Barcode from '../Barcode';
